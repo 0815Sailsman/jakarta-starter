@@ -8,10 +8,23 @@ PUT http://localhost:8080/starter/api/helloworld
 Content-Type: application/json
 
 {
-  "id": 999,
-  "value": "content"
+  "test": 123
 }
 
+###
+PATCH http://localhost:8080/starter/api/helloworld
+Content-Type: application/json
+
+{
+  "test": 456
+}
+###
+POST http://localhost:8080/starter/api/helloworld
+Content-Type: application/json
+
+{
+  "test": 789
+}
 ###
 OPTIONS http://localhost:8080/starter/api/helloworld
 

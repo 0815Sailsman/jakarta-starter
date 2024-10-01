@@ -16,7 +16,12 @@ public class HelloWorld {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response helloWorld() {
-        return Response.ok(toJson("Hello World abc!"), MediaType.APPLICATION_JSON_TYPE).build();
+        JsonObject result = Json.createObjectBuilder()
+                .add("message", "Hello World")
+                .build();
+        return Response.ok(
+                result,
+                MediaType.APPLICATION_JSON_TYPE).build();
     }
 
     @DELETE
@@ -25,13 +30,33 @@ public class HelloWorld {
     }
 
     @PUT
+    @Produces(MediaType.APPLICATION_JSON)
     public Response put(JsonObject json) {
-        System.out.println(json);
-        return Response.ok().build();
+        JsonObject result = Json.createObjectBuilder()
+                .add("message", "Hello put")
+                .add("input", json)
+                .build();
+        return Response.ok(result, MediaType.APPLICATION_JSON_TYPE).build();
     }
 
-    private JsonObject toJson(String message) {
-        return Json.createObjectBuilder().add("message", message).build();
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response post(JsonObject json) {
+        JsonObject result = Json.createObjectBuilder()
+                .add("message", "Hello post")
+                .add("input", json)
+                .build();
+        return Response.ok(result, MediaType.APPLICATION_JSON_TYPE).build();
+    }
+
+    @PATCH
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response patch(JsonObject json) {
+        JsonObject result = Json.createObjectBuilder()
+                .add("message", "Hello patch")
+                .add("input", json)
+                .build();
+        return Response.ok(result, MediaType.APPLICATION_JSON_TYPE).build();
     }
 
 }
