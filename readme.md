@@ -1,7 +1,7 @@
 # Starter für Jakarta-Projekte
 
 
-## Verwendung
+## Händische Verwendung (for sake of completion, just use intellij integration)
 
 ```
 mvn package
