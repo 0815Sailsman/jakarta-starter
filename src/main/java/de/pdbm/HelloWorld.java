@@ -25,7 +25,8 @@ public class HelloWorld {
     }
 
     @DELETE
-    public Response delete() {
+    @Path("/{id}")
+    public Response delete(@PathParam("id") String id) {
         return Response.noContent().build();
     }
 
