@@ -72,13 +72,13 @@ public class HelloWorldIT {
         try(Client client = ClientBuilder.newClient()) {
             WebTarget target = client.target("http://localhost:8080/starter/api/helloworld");
             final String inputJsonString = "{\"anInputKey\":\"anInputValue\"}";
-            Response response = target.request(MediaType.APPLICATION_JSON).method("PATCH", Entity.json(inputJsonString));
+            try(Response response = target.request(MediaType.APPLICATION_JSON).method("PATCH", Entity.json(inputJsonString))) {
+                assertEquals(200, response.getStatus());
 
-            assertEquals(200, response.getStatus());
-
-            JsonObject requestBody= response.readEntity(JsonObject.class);
-            assertEquals("Hello patch", requestBody.getString("message"));
-            assertEquals(inputJsonString, requestBody.getJsonObject("input").toString());
+                JsonObject requestBody= response.readEntity(JsonObject.class);
+                assertEquals("Hello patch", requestBody.getString("message"));
+                assertEquals(inputJsonString, requestBody.getJsonObject("input").toString());
+            }
         }
     }
 
