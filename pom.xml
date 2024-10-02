@@ -16,6 +16,9 @@
 	</properties>
 
 	<dependencies>
+		<!-- Specify, that we are using the jakarta api. Pay attention to the scope: provided!
+		 This means, we are just using the api / its interfaces, and the actual implementation is only given
+		 later at runtime!-->
 		<dependency>
 			<groupId>jakarta.platform</groupId>
 			<artifactId>jakarta.jakartaee-api</artifactId>
@@ -29,6 +32,12 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- RESTEasy client from Maven Central -->
+		<!-- Because we need a rest/http client when running our tests. When running the app, our wildfly application
+		 server is responsible for injecting all the dependencies. This doesn't happen when you run the tests. Therefore
+		 we need this dependency. In the lecture we used a glassfish client for this. Glassfish is a different
+		 implementation of the jakarta api, that is generally considered slower and less robust. It explicitly lacks
+		 a few features I am using in the integration tests, so I see no reason, why we would use it over the
+		 jboss / wildfly implementation...-->
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-client</artifactId>
@@ -37,6 +46,10 @@
 		</dependency>
 
 		<!-- RESTEasy JSON-B provider -->
+		<!-- The provider for serialization and deserialization between java objects and json.
+		 In the lecture, we were suggestd to use yasson from org.eclipse, but again: Its lacking a few critical features
+		 and I wouldn't see, why we would combine 3 different implementations of the API, when we can just use one...
+		 (JBoss / Wildlfly impl)-->
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-json-binding-provider</artifactId>
