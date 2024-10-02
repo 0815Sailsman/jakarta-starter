@@ -1,6 +1,5 @@
 package de.pdbm;
 
-import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -8,9 +7,9 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HelloWorldIT {
 
@@ -30,7 +29,7 @@ public class HelloWorldIT {
     @Test
     public void deleteHelloWorld() {
         try(Client client = ClientBuilder.newClient()) {
-            WebTarget target = client.target("http://localhost:8080/starter/api/helloworld");
+            WebTarget target = client.target("http://localhost:8080/starter/api/helloworld/anId");
             Response response = target.request(MediaType.APPLICATION_JSON).delete(Response.class);
 
             assertEquals(204, response.getStatus());
