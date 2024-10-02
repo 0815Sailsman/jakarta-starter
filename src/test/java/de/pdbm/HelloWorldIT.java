@@ -7,42 +7,52 @@ import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HelloWorldIT {
 
+    Client client;
+    WebTarget target;
+    Response response;
+
+    @BeforeEach
+    public void before() {
+        client = ClientBuilder.newClient();
+    }
+
+    @AfterEach
+    public void after() {
+        client.close();
+    }
+
     @Test
     public void getHelloWorld() {
-        try(Client client = ClientBuilder.newClient()) {
-            WebTarget target = client.target("http://localhost:8080/starter/api/helloworld");
-            Response response = target.request(MediaType.APPLICATION_JSON).get(Response.class);
+        WebTarget target = client.target("http://localhost:8080/starter/api/helloworld");
+        Response response = target.request(MediaType.APPLICATION_JSON).get(Response.class);
 
-            assertEquals(200, response.getStatus());
+        assertEquals(200, response.getStatus());
 
-            JsonObject requestBody= response.readEntity(JsonObject.class);
-            assertEquals("Hello World", requestBody.getString("message"));
-        }
+        JsonObject requestBody= response.readEntity(JsonObject.class);
+        assertEquals("Hello World", requestBody.getString("message"));
     }
 
     @Test
     public void deleteHelloWorld() {
-        try(Client client = ClientBuilder.newClient()) {
-            WebTarget target = client.target("http://localhost:8080/starter/api/helloworld/anId");
-            Response response = target.request(MediaType.APPLICATION_JSON).delete(Response.class);
-
+        WebTarget target = client.target("http://localhost:8080/starter/api/helloworld/anId");
+        try(Response response = target.request(MediaType.APPLICATION_JSON).delete(Response.class)) {
             assertEquals(204, response.getStatus());
         }
     }
 
     @Test
     public void putHelloWorld() {
-        try(Client client = ClientBuilder.newClient()) {
-            WebTarget target = client.target("http://localhost:8080/starter/api/helloworld");
-            final String inputJsonString = "{\"anInputKey\":\"anInputValue\"}";
-            Response response = target.request(MediaType.APPLICATION_JSON).put(Entity.json(inputJsonString));
-
+        WebTarget target = client.target("http://localhost:8080/starter/api/helloworld");
+        final String inputJsonString = "{\"anInputKey\":\"anInputValue\"}";
+        try(Response response = target.request(MediaType.APPLICATION_JSON).put(Entity.json(inputJsonString))) {
             assertEquals(200, response.getStatus());
 
             JsonObject requestBody= response.readEntity(JsonObject.class);
@@ -53,11 +63,9 @@ public class HelloWorldIT {
 
     @Test
     public void postHelloWorld() {
-        try(Client client = ClientBuilder.newClient()) {
-            WebTarget target = client.target("http://localhost:8080/starter/api/helloworld");
-            final String inputJsonString = "{\"anInputKey\":\"anInputValue\"}";
-            Response response = target.request(MediaType.APPLICATION_JSON).post(Entity.json(inputJsonString));
-
+        WebTarget target = client.target("http://localhost:8080/starter/api/helloworld");
+        final String inputJsonString = "{\"anInputKey\":\"anInputValue\"}";
+        try(Response response = target.request(MediaType.APPLICATION_JSON).post(Entity.json(inputJsonString))) {
             assertEquals(200, response.getStatus());
 
             JsonObject requestBody= response.readEntity(JsonObject.class);
@@ -68,16 +76,14 @@ public class HelloWorldIT {
 
     @Test
     public void patchHelloWorld() {
-        try(Client client = ClientBuilder.newClient()) {
-            WebTarget target = client.target("http://localhost:8080/starter/api/helloworld");
-            final String inputJsonString = "{\"anInputKey\":\"anInputValue\"}";
-            try(Response response = target.request(MediaType.APPLICATION_JSON).method("PATCH", Entity.json(inputJsonString))) {
-                assertEquals(200, response.getStatus());
+        WebTarget target = client.target("http://localhost:8080/starter/api/helloworld");
+        final String inputJsonString = "{\"anInputKey\":\"anInputValue\"}";
+        try(Response response = target.request(MediaType.APPLICATION_JSON).method("PATCH", Entity.json(inputJsonString))) {
+            assertEquals(200, response.getStatus());
 
-                JsonObject requestBody= response.readEntity(JsonObject.class);
-                assertEquals("Hello patch", requestBody.getString("message"));
-                assertEquals(inputJsonString, requestBody.getJsonObject("input").toString());
-            }
+            JsonObject requestBody= response.readEntity(JsonObject.class);
+            assertEquals("Hello patch", requestBody.getString("message"));
+            assertEquals(inputJsonString, requestBody.getJsonObject("input").toString());
         }
     }
 
