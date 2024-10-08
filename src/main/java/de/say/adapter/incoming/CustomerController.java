@@ -43,7 +43,9 @@ public class CustomerController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response createCustomer(Customer customer) {
         this.customerUseCase.createCustomer(customer);
-        return Response.ok().build();
+        return Response.ok(
+                customer.getUuid()
+        ).build();
     }
 
     @DELETE
