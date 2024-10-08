@@ -10,4 +10,5 @@ public interface CustomerUseCase {
     Customer getCustomerOrNull(UUID customerId);
     List<Customer> getCustomers();
     void createCustomer(Customer customer);
+    void deleteCustomer(UUID customerId);
 }

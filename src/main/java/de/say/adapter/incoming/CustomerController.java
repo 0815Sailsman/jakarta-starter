@@ -46,4 +46,11 @@ public class CustomerController {
         return Response.ok().build();
     }
 
+    @DELETE
+    @Path("/{uuid}")
+    public Response deleteCustomer(@PathParam("uuid") UUID uuid) {
+        this.customerUseCase.deleteCustomer(uuid);
+        return Response.ok().build();
+    }
+
 }

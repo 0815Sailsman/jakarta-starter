@@ -30,4 +30,9 @@ public class CustomerService implements CustomerUseCase {
         this.customerPort.createCustomer(customer);
     }
 
+    @Override
+    public void deleteCustomer(UUID customerId) {
+        this.customerPort.deleteCustomer(customerId);
+    }
+
 }

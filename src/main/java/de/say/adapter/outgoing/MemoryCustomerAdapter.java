@@ -29,4 +29,9 @@ public class MemoryCustomerAdapter implements CustomerPort {
         this.customers.put(customer.getUuid(), customer);
     }
 
+    @Override
+    public void deleteCustomer(UUID customerId) {
+        this.customers.remove(customerId);
+    }
+
 }
