@@ -1,3 +1,4 @@
-GET http://localhost:8080/starter/api/customer/d63ebd6a-e2e7-494e-b6b0-04bf96206e8a
+GET http://localhost:8080/starter/api/customers/d63ebd6a-e2e7-494e-b6b0-04bf96206e8a
 
 ###
+GET http://localhost:8080/starter/api/customers

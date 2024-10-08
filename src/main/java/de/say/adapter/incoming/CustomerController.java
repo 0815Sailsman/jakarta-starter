@@ -13,7 +13,7 @@ import jakarta.ws.rs.core.Response;
 
 import java.util.UUID;
 
-@Path("customer")
+@Path("customers")
 public class CustomerController {
 
     private static Jsonb jsonb = JsonbBuilder.create();
@@ -29,6 +29,15 @@ public class CustomerController {
                 this.customerUseCase.getCustomerOrNull(uuid),
                 MediaType.APPLICATION_JSON_TYPE)
                 .build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCustomers() {
+        return Response.ok(
+                this.customerUseCase.getCustomers(),
+                MediaType.APPLICATION_JSON_TYPE
+        ).build();
     }
 
 }

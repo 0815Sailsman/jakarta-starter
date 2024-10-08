@@ -6,6 +6,7 @@ import de.say.domain.Customer;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+import java.util.List;
 import java.util.UUID;
 
 @ApplicationScoped
@@ -17,6 +18,11 @@ public class CustomerService implements CustomerUseCase {
     @Override
     public Customer getCustomerOrNull(UUID customerId) {
         return this.customerPort.getCustomerOrNull(customerId);
+    }
+
+    @Override
+    public List<Customer> getCustomers() {
+        return customerPort.getCustomers();
     }
 
 }

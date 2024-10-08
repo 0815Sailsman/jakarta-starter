@@ -19,4 +19,9 @@ public class MemoryCustomerAdapter implements CustomerPort {
         return customers.getOrDefault(customerId, null);
     }
 
+    @Override
+    public List<Customer> getCustomers() {
+        return new ArrayList<Customer>(customers.values());
+    }
+
 }
