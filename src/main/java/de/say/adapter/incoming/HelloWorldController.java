@@ -1,4 +1,4 @@
-package de.pdbm;
+package de.say.adapter.incoming;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
@@ -9,9 +9,9 @@ import jakarta.ws.rs.core.Response;
 import java.util.logging.Logger;
 
 @Path("helloworld")
-public class HelloWorld {
+public class HelloWorldController {
 
-    private static final Logger LOGGER  = Logger.getLogger(HelloWorld.class.getCanonicalName());
+    private static final Logger LOGGER  = Logger.getLogger(HelloWorldController.class.getCanonicalName());
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

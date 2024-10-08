@@ -1,4 +1,4 @@
-package de.pdbm;
+package de.say;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;

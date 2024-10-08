@@ -1,4 +1,4 @@
-package de.pdbm;
+package de.say;
 
 import jakarta.json.JsonObject;
 import jakarta.ws.rs.client.Client;
