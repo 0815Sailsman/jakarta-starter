@@ -21,6 +21,10 @@ public class Customer {
         this(UUID.randomUUID(), vorname, nachname, geburtsdatum);
     }
 
+    public Customer() {
+        this.uuid = UUID.randomUUID();
+    }
+
     public UUID getUuid() {
         return uuid;
     }
@@ -35,5 +39,17 @@ public class Customer {
 
     public LocalDateTime getGeburtsdatum() {
         return geburtsdatum;
+    }
+
+    public void setVorname(String vorname) {
+        this.vorname = vorname;
+    }
+
+    public void setNachname(String nachname) {
+        this.nachname = nachname;
+    }
+
+    public void setGeburtsdatum(LocalDateTime geburtsdatum) {
+        this.geburtsdatum = geburtsdatum;
     }
 }

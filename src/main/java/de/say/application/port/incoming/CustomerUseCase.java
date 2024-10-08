@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface CustomerUseCase {
     Customer getCustomerOrNull(UUID customerId);
     List<Customer> getCustomers();
+    void createCustomer(Customer customer);
 }

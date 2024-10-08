@@ -25,4 +25,9 @@ public class CustomerService implements CustomerUseCase {
         return customerPort.getCustomers();
     }
 
+    @Override
+    public void createCustomer(Customer customer) {
+        this.customerPort.createCustomer(customer);
+    }
+
 }

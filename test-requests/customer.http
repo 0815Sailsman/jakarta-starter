@@ -2,3 +2,13 @@ GET http://localhost:8080/starter/api/customers/d63ebd6a-e2e7-494e-b6b0-04bf9620
 
 ###
 GET http://localhost:8080/starter/api/customers
+
+###
+POST http://localhost:8080/starter/api/customers
+Content-Type: application/json
+
+{
+  "geburtsdatum": "2010-10-08T15:06:04.910603681",
+  "nachname": "based",
+  "vorname": "say"
+}
