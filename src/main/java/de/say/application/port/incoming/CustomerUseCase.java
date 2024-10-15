@@ -3,12 +3,12 @@ package de.say.application.port.incoming;
 import de.say.domain.Customer;
 
 import java.util.List;
-import java.util.UUID;
 
 
 public interface CustomerUseCase {
-    Customer getCustomerOrNull(UUID customerId);
+    Customer getCustomerOrNull(int customerId);
     List<Customer> getCustomers();
     void createCustomer(Customer customer);
-    void deleteCustomer(UUID customerId);
+    void deleteCustomer(int id);
+    void updateCustomer(int id, Customer customer);
 }

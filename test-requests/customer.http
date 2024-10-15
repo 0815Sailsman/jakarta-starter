@@ -1,4 +1,4 @@
-GET http://localhost:8080/starter/api/customers/d63ebd6a-e2e7-494e-b6b0-04bf96206e8a
+GET http://localhost:8080/starter/api/customers/1
 
 ###
 GET http://localhost:8080/starter/api/customers
@@ -14,4 +14,14 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/starter/api/customers/d63ebd6a-e2e7-494e-b6b0-04bf96206e8a
+PATCH http://localhost:8080/starter/api/customers/1
+Content-Type: application/json
+
+{
+  "geburtsdatum": "2010-10-08T15:06:04.910603681",
+  "nachname": "epic",
+  "vorname": "say"
+}
+
+###
+DELETE http://localhost:8080/starter/api/customers/1

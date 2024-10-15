@@ -1,32 +1,46 @@
 package de.say.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
-public class Customer {
+@Entity
+public class Customer implements Serializable {
 
-    private UUID uuid;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String vorname;
     private String nachname;
     private LocalDateTime geburtsdatum;
 
-    public Customer(UUID uuid, String vorname, String nachname, LocalDateTime geburtsdatum) {
-        this.uuid = uuid;
+    public Customer(int id, String vorname, String nachname, LocalDateTime geburtsdatum) {
+        this.id = id;
         this.vorname = vorname;
         this.nachname = nachname;
         this.geburtsdatum = geburtsdatum;
     }
 
     public Customer(String vorname, String nachname, LocalDateTime geburtsdatum) {
-        this(UUID.randomUUID(), vorname, nachname, geburtsdatum);
+        this.vorname = vorname;
+        this.nachname = nachname;
+        this.geburtsdatum = geburtsdatum;
     }
 
-    public Customer() {
-        this.uuid = UUID.randomUUID();
+    public Customer() {}
+
+    public void merge(Customer customer) {
+        this.vorname = customer.getVorname();
+        this.nachname = customer.getNachname();
+        this.geburtsdatum = customer.getGeburtsdatum();
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public int getId() {
+        return id;
     }
 
     public String getVorname() {

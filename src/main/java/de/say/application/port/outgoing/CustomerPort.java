@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CustomerPort {
-    Customer getCustomerOrNull(UUID customerId);
+    Customer getCustomerOrNull(int id);
     List<Customer> getCustomers();
     void createCustomer(Customer customer);
-    void deleteCustomer(UUID customerId);
+    void deleteCustomer(int id);
+    void updateCustomer(Customer customer);
 }

@@ -3,20 +3,22 @@ package de.say.adapter.outgoing;
 import de.say.application.port.outgoing.CustomerPort;
 import de.say.domain.Customer;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Alternative;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
 @ApplicationScoped
+@Alternative
 public class MemoryCustomerAdapter implements CustomerPort {
 
-    private Map<UUID, Customer> customers = new HashMap<>(Map.of(
-            UUID.fromString("d63ebd6a-e2e7-494e-b6b0-04bf96206e8a"), new Customer(UUID.fromString("d63ebd6a-e2e7-494e-b6b0-04bf96206e8a"), "john", "doe", LocalDateTime.now())
+    private Map<Integer, Customer> customers = new HashMap<>(Map.of(
+            0, new Customer(0, "john", "doe", LocalDateTime.now())
     ));
 
     @Override
-    public Customer getCustomerOrNull(UUID customerId) {
-        return customers.getOrDefault(customerId, null);
+    public Customer getCustomerOrNull(int id) {
+        return customers.getOrDefault(id, null);
     }
 
     @Override
@@ -26,12 +28,17 @@ public class MemoryCustomerAdapter implements CustomerPort {
 
     @Override
     public void createCustomer(Customer customer) {
-        this.customers.put(customer.getUuid(), customer);
+        this.customers.put(customer.getId(), customer);
     }
 
     @Override
-    public void deleteCustomer(UUID customerId) {
-        this.customers.remove(customerId);
+    public void deleteCustomer(int id) {
+        this.customers.remove(id);
+    }
+
+    @Override
+    public void updateCustomer(Customer customer) {
+        this.customers.put(customer.getId(), customer);
     }
 
 }

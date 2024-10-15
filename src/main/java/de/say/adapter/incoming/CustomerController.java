@@ -9,8 +9,6 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import java.util.UUID;
-
 @Path("customers")
 public class CustomerController {
 
@@ -21,10 +19,10 @@ public class CustomerController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{uuid}")
-    public Response getCustomer(@PathParam("uuid") UUID uuid) {
+    @Path("/{id}")
+    public Response getCustomer(@PathParam("id") int id) {
         return Response.ok(
-                this.customerUseCase.getCustomerOrNull(uuid),
+                this.customerUseCase.getCustomerOrNull(id),
                 MediaType.APPLICATION_JSON_TYPE)
                 .build();
     }
@@ -44,14 +42,22 @@ public class CustomerController {
     public Response createCustomer(Customer customer) {
         this.customerUseCase.createCustomer(customer);
         return Response.ok(
-                customer.getUuid()
+                customer.getId()
         ).build();
     }
 
+    @PATCH
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{id}")
+    public Response updateCustomer(@PathParam("id") int id, Customer customer) {
+        this.customerUseCase.updateCustomer(id, customer);
+        return Response.ok().build();
+    }
+
     @DELETE
-    @Path("/{uuid}")
-    public Response deleteCustomer(@PathParam("uuid") UUID uuid) {
-        this.customerUseCase.deleteCustomer(uuid);
+    @Path("/{id}")
+    public Response deleteCustomer(@PathParam("id") int id) {
+        this.customerUseCase.deleteCustomer(id);
         return Response.ok().build();
     }
 
