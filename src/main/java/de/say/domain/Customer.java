@@ -13,57 +13,46 @@ public class Customer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String vorname;
-    private String nachname;
-    private LocalDateTime geburtsdatum;
+    private int customer_id;
+    private String first_name;
+    private String last_name;
 
-    public Customer(int id, String vorname, String nachname, LocalDateTime geburtsdatum) {
-        this.id = id;
-        this.vorname = vorname;
-        this.nachname = nachname;
-        this.geburtsdatum = geburtsdatum;
+    public Customer(int customer_id, String first_name, String last_name) {
+        this.customer_id = customer_id;
+        this.first_name = first_name;
+        this.last_name = last_name;
     }
 
-    public Customer(String vorname, String nachname, LocalDateTime geburtsdatum) {
-        this.vorname = vorname;
-        this.nachname = nachname;
-        this.geburtsdatum = geburtsdatum;
+    public Customer(String first_name, String last_name) {
+        this.first_name = first_name;
+        this.last_name = last_name;
     }
 
     public Customer() {}
 
     public void merge(Customer customer) {
-        this.vorname = customer.getVorname();
-        this.nachname = customer.getNachname();
-        this.geburtsdatum = customer.getGeburtsdatum();
+        this.first_name = customer.getFirst_name();
+        this.last_name = customer.getLast_name();
     }
 
-    public int getId() {
-        return id;
+    public int getCustomer_id() {
+        return customer_id;
     }
 
-    public String getVorname() {
-        return vorname;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public String getNachname() {
-        return nachname;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public LocalDateTime getGeburtsdatum() {
-        return geburtsdatum;
+
+    public void setFirst_name(String vorname) {
+        this.first_name = vorname;
     }
 
-    public void setVorname(String vorname) {
-        this.vorname = vorname;
-    }
-
-    public void setNachname(String nachname) {
-        this.nachname = nachname;
-    }
-
-    public void setGeburtsdatum(LocalDateTime geburtsdatum) {
-        this.geburtsdatum = geburtsdatum;
+    public void setLast_name(String nachname) {
+        this.last_name = nachname;
     }
 }

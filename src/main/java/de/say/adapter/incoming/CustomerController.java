@@ -42,7 +42,7 @@ public class CustomerController {
     public Response createCustomer(Customer customer) {
         this.customerUseCase.createCustomer(customer);
         return Response.ok(
-                customer.getId()
+                customer.getCustomer_id()
         ).build();
     }
 

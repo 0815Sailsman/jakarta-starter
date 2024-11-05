@@ -13,7 +13,7 @@ import java.util.*;
 public class MemoryCustomerAdapter implements CustomerPort {
 
     private Map<Integer, Customer> customers = new HashMap<>(Map.of(
-            0, new Customer(0, "john", "doe", LocalDateTime.now())
+            0, new Customer(0, "john", "doe")
     ));
 
     @Override
@@ -28,7 +28,7 @@ public class MemoryCustomerAdapter implements CustomerPort {
 
     @Override
     public void createCustomer(Customer customer) {
-        this.customers.put(customer.getId(), customer);
+        this.customers.put(customer.getCustomer_id(), customer);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class MemoryCustomerAdapter implements CustomerPort {
 
     @Override
     public void updateCustomer(Customer customer) {
-        this.customers.put(customer.getId(), customer);
+        this.customers.put(customer.getCustomer_id(), customer);
     }
 
 }
