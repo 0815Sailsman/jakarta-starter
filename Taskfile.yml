@@ -1,0 +1,9 @@
+version: '3'
+
+tasks:
+  start-postgres:
+    cmds:
+      - podman-compose -f postgres-docker-compose.yml up -d --build
+  stop-postgres:
+    cmds:
+      - podman container stop ftse
