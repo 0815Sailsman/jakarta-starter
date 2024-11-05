@@ -1,5 +1,10 @@
-# Starter für Jakarta-Projekte
+# Starter für Jakarta-Projekt | FTSE
 
+Siehe taskfile für allgemeine commands
+
+## Notizen zur Datenbankhandhabung
+[Postgres Treiber](https://jdbc.postgresql.org/download/postgresql-42.7.3.jar) liegt in der installations-directory
+von wildfly/standalone/deployments/
 
 ## Händische Verwendung (for sake of completion, just use intellij integration)
 

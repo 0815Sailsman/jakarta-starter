@@ -1,8 +1,6 @@
 services:
   db:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: docker.io/postgres:16
     container_name: ftse
     environment:
       POSTGRES_USER: ftse
