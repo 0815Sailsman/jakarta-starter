@@ -1,0 +1,17 @@
+[
+  {
+    "name": "jakarta.persistence.EntityManager",
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "jakarta.persistence.EntityManagerFactory",
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+    {
+      "name": "org.eclipse.yasson.JsonBindingProvider",
+      "allDeclaredConstructors": true,
+      "allDeclaredMethods": true
+    }
+]

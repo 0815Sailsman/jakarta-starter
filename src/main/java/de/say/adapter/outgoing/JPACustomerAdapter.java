@@ -2,6 +2,7 @@ package de.say.adapter.outgoing;
 
 import de.say.application.port.outgoing.CustomerPort;
 import de.say.domain.Customer;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -10,6 +11,7 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 
+@RegisterForReflection
 @RequestScoped
 public class JPACustomerAdapter implements CustomerPort {
 

@@ -1,15 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.say</groupId>
 	<artifactId>starter</artifactId>
 	<version>1.0</version>
-	<packaging>war</packaging>
 	<name>Jakarta Starter</name>
 	<description>Simple Project for Jakarta Applications</description>
 
 	<properties>
+		<compiler-plugin.version>3.13.0</compiler-plugin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.compiler.target>21</maven.compiler.target>
@@ -17,7 +16,23 @@
 		<wildfly.version>33.0.0.Final</wildfly.version>
 		<wildfly-jar-maven-plugin.version>11.0.2.Final</wildfly-jar-maven-plugin.version>
 		<maven-war-plugin.version>3.4.0</maven-war-plugin.version>
+		<quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
+		<quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
+		<quarkus.platform.version>3.14.4</quarkus.platform.version>
+		<skipITs>true</skipITs>
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>${quarkus.platform.group-id}</groupId>
+				<artifactId>${quarkus.platform.artifact-id}</artifactId>
+				<version>${quarkus.platform.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<!-- Specify, that we are using the jakarta api. Pay attention to the scope: provided!
@@ -31,10 +46,8 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
 		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.11.1</version>
-			<scope>test</scope>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-resteasy-jsonb</artifactId>
 		</dependency>
 		<!-- RESTEasy client from Maven Central -->
 		<!-- Because we need a rest/http client when running our tests. When running the app, our wildfly application
@@ -44,36 +57,73 @@
 		 a few features I am using in the integration tests, so I see no reason, why we would use it over the
 		 jboss / wildfly implementation...-->
 		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.11.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-client</artifactId>
 			<version>6.2.10.Final</version>
 			<scope>test</scope>
 		</dependency>
 
-		<!-- RESTEasy JSON-B provider -->
-		<!-- The provider for serialization and deserialization between java objects and json.
-		 In the lecture, we were suggestd to use yasson from org.eclipse, but again: Its lacking a few critical features
-		 and I wouldn't see, why we would combine 3 different implementations of the API, when we can just use one...
-		 (JBoss / Wildlfly impl)-->
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-json-binding-provider</artifactId>
-			<version>6.2.10.Final</version>
-			<scope>test</scope>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>42.7.4</version>
 		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-resteasy</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-arc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-junit5</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-hibernate-orm</artifactId> <!-- Or your specific database -->
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-jdbc-postgresql</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
-		<finalName>starter</finalName>
-
 			<plugins>
+				<plugin>
+					<groupId>${quarkus.platform.group-id}</groupId>
+					<artifactId>quarkus-maven-plugin</artifactId>
+					<version>${quarkus.platform.version}</version>
+					<extensions>true</extensions>
+					<executions>
+						<execution>
+							<goals>
+								<goal>build</goal>
+								<goal>generate-code</goal>
+								<goal>generate-code-tests</goal>
+								<goal>native-image-agent</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
@@ -99,6 +149,20 @@
 							</goals>
 						</execution>
 					</executions>
+					<configuration>
+						<systemPropertyVariables>
+							<native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+							<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+							<maven.home>${maven.home}</maven.home>
+						</systemPropertyVariables>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${compiler-plugin.version}</version>
+					<configuration>
+						<parameters>true</parameters>
+					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.wildfly.plugins</groupId>
@@ -142,4 +206,19 @@
 				</plugin>
 			</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>native</id>
+			<activation>
+				<property>
+					<name>native</name>
+				</property>
+			</activation>
+			<properties>
+				<skipITs>false</skipITs>
+				<quarkus.native.enabled>true</quarkus.native.enabled>
+			</properties>
+		</profile>
+	</profiles>
 </project>
