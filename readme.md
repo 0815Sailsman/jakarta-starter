@@ -22,3 +22,9 @@ mvn clean package
 
 ### Deploy
 cp ./target/starter.war ~/code/wildfly.../standalone/deployments
+
+
+### Environemtn
+export POSTGRESQL_DATABASE=dvdrentalcustomer
+export POSTGRESQL_PASSWORD=root
+export POSTGRESQL_USER=ftse

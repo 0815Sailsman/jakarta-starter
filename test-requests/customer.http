@@ -1,7 +1,7 @@
-GET http://localhost:8080/starter/api/customers/1
+GET http://localhost:8080/api/customers/1
 
 ###
-GET http://localhost:8080/starter/api/customers
+GET http://localhost:8080/api/customers
 
 ###
 POST http://localhost:8080/starter/api/customers
