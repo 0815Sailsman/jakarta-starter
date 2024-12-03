@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:16
+    container_name: ftse
+    environment:
+      POSTGRES_USER: ftse
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database/:/docker-entrypoint-initdb.d/
+      - data_sql:/var/lib/postgresql/data   # Persistent data storage
+    networks:
+      - ftse
+
+  backend:
+    image: localhost/backend
+    container_name: backend
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: ftse
+      DB_PASSWORD: root
+      DB_NAME: postgres
+    ports:
+      - "8080:8080"
+    networks:
+      - ftse
+    depends_on:
+      - db
+
+volumes:
+  data_sql:
+
+networks:
+  ftse:
